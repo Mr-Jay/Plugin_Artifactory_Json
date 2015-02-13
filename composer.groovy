@@ -16,6 +16,10 @@
  */
 
 
+/** Note: To work, this plugin need to create a directory with such layout: composer-default, and upload the json
+* file provides, in a subdirectory include.
+*
+*/
 import org.artifactory.fs.FileLayoutInfo
 import org.artifactory.fs.FileInfo
 import org.artifactory.fs.ItemInfo
@@ -199,7 +203,7 @@ storage {
 			def layout = repositories.getRepositoryConfiguration(item.repoPath.repoKey).getRepoLayoutRef()
 			if ((layout == "composer-default")&&(item.getMimeType() == "application/zip"))
 			{
-				deployNewInclude(item.repoPath, pathSetting)
+				//deployNewInclude(item.repoPath, pathSetting)
 			}
 
 		}
@@ -711,6 +715,11 @@ private def nameLastInclude(targetRepoPath)
 	}
 }
 
+/**DONT WORK!
+ * create and deploy new json if not exists already
+ * @param  targetRepoPath
+ * @param pathSetting
+ */
 private def deployNewInclude(targetRepoPath, pathSetting)
 {
 	list = repositories.getChildren(RepoPathFactory.create(targetRepoPath.repoKey,"/include/"))
